@@ -83,9 +83,9 @@ function WEEKOF ()
 	WEEK_DAY_OF_JAN_1=$(gdate -d $YEAR-01-01 +%u)
 
 	if ((WEEK_NUM_OF_JAN_1)); then
-			FIRST_MON=$YEAR-01-01
+		FIRST_MON=$YEAR-01-01
 	else
-			FIRST_MON=$YEAR-01-$((01 + (7 - WEEK_DAY_OF_JAN_1 + 1) ))
+		FIRST_MON=$YEAR-01-$((01 + (7 - WEEK_DAY_OF_JAN_1 + 1) ))
 	fi
 
 	MON=$(gdate -d "$FIRST_MON +$((WEEK - 1)) WEEK" "$DATE_FMT")
