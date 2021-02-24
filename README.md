@@ -6,7 +6,7 @@ This script has been designed to run on MacOS. Future versions will be modified 
 It's primary purpose is to work with the excellent video surveillance software SecuritySpy for MacOS. https://www.bensoftware.com/securityspy/
 
 ## Prerequisites
-Using Brew (https://brew.sh), installed the following packages:
+Using Brew (https://brew.sh), install the following packages:
 
 `brew install ffmpeg coreutils gnu-getopt`
 
