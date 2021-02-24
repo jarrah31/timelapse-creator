@@ -1,0 +1,24 @@
+# List of camera names that matches the camera name folders found within FOLDER_SRC
+# e.g.
+# /Volumes/Media/timelapsecams/frontcam/
+# /Volumes/Media/timelapsecams/backcam/
+CAMLIST="frontcam backcam camthree camfour" 
+
+# Path to the folder containing named camera sub-folders with timelapse images
+# e.g.
+# /Volumes/Media/timelapsecams
+FOLDER_SRC="/Volumes/Media/timelapse"  # doesn't need a trailing slash, e.g. "/path/to/lastfolder" 
+
+# Destination folder for generated timelapse videos (will be created if it does not exist)
+# e.g.
+# /Volumes/Media/timelapsecams/timelapseVids 
+FOLDER_DEST="/Volumes/Media/timelapse/timelapseVids"  # no trailing slash
+
+# Temporary folder for storing symbolic links.
+# **!WARNING!** - this folder will be deleted when the script runs
+FOLDER_WORKING="/tmp/timelapsvids"  # no trailing slash
+
+FILES_EXT="jpg"          # Timelapse photos file extension
+VID_SIZE='1600x1200'     # Output video size width x height
+ASPECT_RATIO=4:3         # Output video aspect ratio
+
