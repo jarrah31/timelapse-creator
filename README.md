@@ -10,7 +10,7 @@ Using Brew (https://brew.sh), install the following packages:
 
 `brew install ffmpeg coreutils gnu-getopt`
 
-Run the following to add gnu-getopt to your PATH:
+Run the following to add gnu-getopt to your PATH. You then need to log off and back in again for the changes to take effect.
 
 `echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc`
 
