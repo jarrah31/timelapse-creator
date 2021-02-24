@@ -75,22 +75,22 @@ function USAGE ()
 function WEEKOF ()
 {
 	# Returns the first monday of a week from a given date
-    WEEK=$1
-    YEAR=$2
-    DATE_FMT="+%F"
+	WEEK=$1
+	YEAR=$2
+	DATE_FMT="+%F"
 
-    WEEK_NUM_OF_JAN_1=$(gdate -d $YEAR-01-01 +%W)
-    WEEK_DAY_OF_JAN_1=$(gdate -d $YEAR-01-01 +%u)
+	WEEK_NUM_OF_JAN_1=$(gdate -d $YEAR-01-01 +%W)
+	WEEK_DAY_OF_JAN_1=$(gdate -d $YEAR-01-01 +%u)
 
-    if ((WEEK_NUM_OF_JAN_1)); then
-        FIRST_MON=$YEAR-01-01
-    else
-        FIRST_MON=$YEAR-01-$((01 + (7 - WEEK_DAY_OF_JAN_1 + 1) ))
-    fi
+	if ((WEEK_NUM_OF_JAN_1)); then
+			FIRST_MON=$YEAR-01-01
+	else
+			FIRST_MON=$YEAR-01-$((01 + (7 - WEEK_DAY_OF_JAN_1 + 1) ))
+	fi
 
-    MON=$(gdate -d "$FIRST_MON +$((WEEK - 1)) WEEK" "$DATE_FMT")
-    SUN=$(gdate -d "$FIRST_MON +$((WEEK - 1)) WEEK + 6 day" "$DATE_FMT")
-    #echo "\"$mon\" - \"$sun\""
+	MON=$(gdate -d "$FIRST_MON +$((WEEK - 1)) WEEK" "$DATE_FMT")
+	SUN=$(gdate -d "$FIRST_MON +$((WEEK - 1)) WEEK + 6 day" "$DATE_FMT")
+	#echo "\"$mon\" - \"$sun\""
 }
 
 function INVALDATE ()
@@ -120,7 +120,7 @@ OPTS=`getopt -o hvgd:w:c:m:s:e:f: -l help,verbose,daily,weekly,monthly,start,end
 
 if [ $? != 0 ]; then
 	USAGE
-    exit 1
+	exit 1
 fi
  
 eval set -- "$OPTS"
@@ -128,10 +128,10 @@ eval set -- "$OPTS"
 optnum=0
 
 while true ; do
-    case "$1" in
-        -h|--help) USAGE; shift;;
-        -v|--verbose) VERBOSE=true; shift;;
-        -d|--daily) DATEVALUE=$2; DAILY=true; MODE=daily; let optnum=optnum+1; shift 2;;
+	case "$1" in
+		-h|--help) USAGE; shift;;
+		-v|--verbose) VERBOSE=true; shift;;
+		-d|--daily) DATEVALUE=$2; DAILY=true; MODE=daily; let optnum=optnum+1; shift 2;;
 		-w|--weekly) DATEVALUE=$2; WEEKLY=true; MODE=weekly; let optnum=optnum+1; shift 2;;
 		-m|--monthly) MONTHVALUE=$2; MONTHLY=true; MODE=monthly; let optnum=optnum+1; shift 2;;
 		-s|--start) STARTVALUE=$2; RANGE=true; MODE=range; let optnum=optnum+1; shift 2;;
@@ -139,8 +139,8 @@ while true ; do
 		-f|--fps) NEWFPS=$2; SETFPS=true; let optnum=optnum+1; shift 2;;
 		-c|--camera) CAMNAME=$2; CAMERA=true; shift 2;;
 		-g|--debug) DEBUG=true; shift;;
-        --) shift; break;;
-    esac
+		--) shift; break;;
+	esac
 done
 
 if [[ "$DEBUG" = true ]]; then
@@ -196,9 +196,9 @@ fi
 if [[ "$SETFPS" = true ]]; then
 	re='^[0-9]+$'
 	if ! [[ ${NEWFPS} =~ $re ]] ; then
-	   echo "ERROR  : FPS option is not a number" >&2
-	   echo
-	   exit 1
+		echo "ERROR  : FPS option is not a number" >&2
+		echo
+		exit 1
 	fi
 fi
 
@@ -285,25 +285,25 @@ if [[ "$VALID" = true ]]; then
 
 	# Check if source folder exists
 	if [ ! -d $FOLDER_SOURCE ] ; then
-	    echo "ERROR : Source Folder" $FOLDER_SOURCE "Does Not Exist"
-	    echo "        Check $0 Variable folder_source and Try Again"
-	    exit 1
+		echo "ERROR : Source Folder" $FOLDER_SOURCE "Does Not Exist"
+		echo "        Check $0 Variable folder_source and Try Again"
+		exit 1
 	fi
 
 	# Create destination folder if it does not exist
 	if [ ! -d $FOLDER_DEST ] ; then
-	    mkdir $FOLDER_DEST
-	    if [ "$?" -ne 0 ]; then
-	        echo "ERROR : Problem Creating Destination Folder" $FOLDER_DEST
-	        echo "        If destination is a remote folder or mount then check network, destination IP address, permissions, Etc"
-	        exit 1
-	    fi
+		mkdir $FOLDER_DEST
+		if [ "$?" -ne 0 ]; then
+			echo "ERROR : Problem Creating Destination Folder" $FOLDER_DEST
+			echo "        If destination is a remote folder or mount then check network, destination IP address, permissions, Etc"
+			exit 1
+		fi
 	fi
 
 	# Remove old working folder if it exists
 	if [ -d $FOLDER_WORKING ] ; then
-	    echo "WARN  : Removing previous temporary working folder $FOLDER_WORKING"
-	    rm -R $FOLDER_WORKING
+		echo "WARN  : Removing previous temporary working folder $FOLDER_WORKING"
+		rm -R $FOLDER_WORKING
 	fi
 
 	# Create a new temporary working folder to store soft links
@@ -311,8 +311,8 @@ if [[ "$VALID" = true ]]; then
 	echo "INFO  : Creating Temporary Working Folder $FOLDER_WORKING"
 	mkdir $FOLDER_WORKING
 	if [ ! -d $FOLDER_WORKING ] ; then
-	    echo "ERROR : Problem Creating Temporary Working Folder $FOLDER_WORKING"
-	    exit 1
+		echo "ERROR : Problem Creating Temporary Working Folder $FOLDER_WORKING"
+		exit 1
 	fi
 
 	cd $FOLDER_WORKING    # change to working folder
@@ -332,13 +332,13 @@ if [[ "$VALID" = true ]]; then
 	
 	find $FOLDER_SOURCE \( ! -regex '.*/\..*' \) -newermt $DATESTART ! -newermt $DATEEND -type f | sort -n |
 	(
-	  # create sym links in working folder for the rest of the files
-	  while read file
-	  do
-	    new=$(printf "%05d.$FILES_EXT" ${a}) #05 pad to length of 4 max 99999 images
-	    ln -s ${file} ${new}
-	    let a=a+1
-	  done
+		# create sym links in working folder for the rest of the files
+		while read file
+		do
+			new=$(printf "%05d.$FILES_EXT" ${a}) #05 pad to length of 4 max 99999 images
+			ln -s ${file} ${new}
+			let a=a+1
+		done
 	)
 
 
@@ -363,11 +363,11 @@ if [[ "$VALID" = true ]]; then
 	fi
 
 	if [ $? -ne 0 ] ; then   # Check for encoding error
-	  echo "ERROR : Encoding Failed for" $FOLDER_DEST/$VIDEONAME
-	  echo "        Review Output for Error Messages and Correct Problem"
-	  exit 1
+		echo "ERROR : Encoding Failed for" $FOLDER_DEST/$VIDEONAME
+		echo "        Review Output for Error Messages and Correct Problem"
+		exit 1
 	else
-	  echo "INFO  : Video Saved to" $FOLDER_DEST/$VIDEONAME
+		echo "INFO  : Video Saved to" $FOLDER_DEST/$VIDEONAME
 	fi
 else
 	USAGE
